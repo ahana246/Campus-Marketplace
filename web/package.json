@@ -1,0 +1,21 @@
+{
+  "name": "campus-marketplace",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "embed": "node --env-file=.env.local scripts/embed-all.mjs"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "^3.5.0",
+    "bcryptjs": "^2.4.3",
+    "jose": "^5.9.6",
+    "mysql2": "^3.11.5",
+    "next": "^15.3.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "redis": "^4.7.0"
+  }
+}

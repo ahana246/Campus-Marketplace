@@ -1,0 +1,36 @@
+# =====================================================================
+#  CAMPUS MARKETPLACE  -  Redis (NoSQL) commands
+#  Redis is used for two things:
+#    1. KEY-VALUE store : a view counter for each listing
+#    2. VECTOR database : one hash per listing with its 384-number
+#                         embedding, searched with K-nearest-neighbours
+#  Open the Redis shell with:   docker exec -it cm_redis redis-cli
+# =====================================================================
+
+# ---------------- 1. Key-value: create / read / update / delete --------
+SET    views:listing:1 0
+INCR   views:listing:1
+GET    views:listing:1
+DEL    views:listing:1
+KEYS   views:*
+
+# ---------------- 2. Vector database: create the index ----------------
+# Every hash whose key starts with "listing:" is indexed.
+# embedding = 384 FLOAT32 numbers, compared with cosine distance.
+FT.CREATE idx:listings ON HASH PREFIX 1 listing: SCHEMA title TEXT status TAG price NUMERIC embedding VECTOR FLAT 6 TYPE FLOAT32 DIM 384 DISTANCE_METRIC COSINE
+FT.INFO idx:listings
+
+# ---------------- 3. Read ---------------------------------------------
+HGETALL listing:1
+HGET    listing:1 title
+FT.SEARCH idx:listings "@status:{AVAILABLE}" RETURN 2 title price LIMIT 0 5
+FT.SEARCH idx:listings "@price:[0 500]" RETURN 2 title price
+
+# Semantic search (run by the web app, because the query vector is binary):
+#   FT.SEARCH idx:listings "(@status:{AVAILABLE})=>[KNN 6 @embedding $vec AS score]"
+#             PARAMS 2 vec <query embedding> SORTBY score DIALECT 2
+
+# ---------------- 4. Update / delete ----------------------------------
+HSET listing:1 status CLOSED
+HSET listing:1 price 600
+DEL  listing:1
