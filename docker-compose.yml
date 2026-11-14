@@ -1,0 +1,32 @@
+# Campus Marketplace - database services
+#   docker compose up -d
+# MySQL runs every script in database/init on first start (schema, routines,
+# triggers, views, seed data, roles). Delete the volume to re-initialise:
+#   docker compose down -v
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: cm_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpw
+    ports:
+      - "3307:3306"   # 3307 on the host, so it does not clash with a local MySQL
+    volumes:
+      - ./database/init:/docker-entrypoint-initdb.d:ro
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-uroot", "-prootpw"]
+      interval: 5s
+      retries: 20
+
+  redis:
+    image: redis/redis-stack-server:7.4.0-v1
+    container_name: cm_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  mysql_data:
+  redis_data:
