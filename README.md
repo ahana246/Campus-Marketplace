@@ -1,4 +1,8 @@
 # Campus Marketplace
+
+**UE23CS351A DBMS Project, Team 21**
+Ahana H Sharan (PES1UG24AM020) · Anarghyaa Kashyap (PES1UG24AM039)
+
 Students buy and sell college items on campus.
 
 * **MySQL**: main relational database
@@ -42,3 +46,19 @@ Requires **Docker Desktop** (running) and **Node.js**.
    ```
 
    Open http://localhost:3000.
+
+**Demo logins** (password `password123`): `admin@pes.edu` (admin); `ahana@pes.edu`, `rohan@pes.edu`, `divya@pes.edu` (students).
+
+**Reset to sample data:** `docker compose down -v`, then repeat steps 1 and 2 (skip `cp` and `npm install`).
+
+**Run a SQL demo:**
+
+```bash
+docker exec -i cm_mysql mysql -uroot -prootpw campus_marketplace < database/demo/07_queries.sql
+```
+
+**Open the Redis shell:**
+
+```bash
+docker exec -it cm_redis redis-cli
+```
