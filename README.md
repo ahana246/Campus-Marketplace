@@ -1,6 +1,6 @@
 # Campus Marketplace
 
-**UE23CS351A DBMS Project, Team 21**
+**UE23CS351A DBMS Project, Team 21** <br>
 Ahana H Sharan (PES1UG24AM020) <br>
 Anarghyaa Kashyap (PES1UG24AM039)
 
