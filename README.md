@@ -1,7 +1,8 @@
 # Campus Marketplace
 
 **UE23CS351A DBMS Project, Team 21**
-Ahana H Sharan (PES1UG24AM020) · Anarghyaa Kashyap (PES1UG24AM039)
+Ahana H Sharan (PES1UG24AM020) <br>
+Anarghyaa Kashyap (PES1UG24AM039)
 
 Students buy and sell college items on campus.
 
